@@ -1,0 +1,144 @@
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Dashboard";
+
+    var userName = Context.Session.GetString("UserName");
+}
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f4f6f9;
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 50px;
+        background-color: white;
+    }
+
+    .nav-left a,
+    .nav-right a {
+        text-decoration: none;
+        font-size: 20px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .nav-left a {
+        color: #2c3e50;
+    }
+
+    .nav-right a {
+        color: #e74c3c;
+    }
+
+    .nav-left a:hover,
+    .nav-right a:hover {
+        opacity: 0.7;
+    }
+
+    .dashboard-title {
+        text-align: center;
+        margin-top: 40px;
+        font-size: 42px;
+        color: #2c3e50;
+        font-weight: bold;
+    }
+
+    .welcome-text {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 30px;
+        color: #34495e;
+        font-weight: bold;
+    }
+
+    .welcome-text span {
+        color: #3498db;
+    }
+
+    .card-container {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        margin-top: 70px;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-card {
+        width: 260px;
+        padding: 35px;
+        border-radius: 20px;
+        background-color: white;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .dashboard-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0px 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .dashboard-card h2 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .dashboard-card h1 {
+        color: #3498db;
+        font-size: 45px;
+    }
+</style>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <div class="nav-left">
+        <a href="/Student/Index">Student</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="/Account/Logout">Logout</a>
+    </div>
+
+</div>
+
+<!-- TITLE -->
+
+<div class="dashboard-title">
+    Student Portal Dashboard
+</div>
+
+<!-- WELCOME -->
+
+<div class="welcome-text">
+    Welcome <span>@userName</span>
+</div>
+
+<!-- CARDS -->
+
+<div class="card-container">
+
+    <div class="dashboard-card">
+        <h2>Total Students</h2>
+        <h1>120</h1>
+    </div>
+
+    <div class="dashboard-card">
+        <h2>Total Courses</h2>
+        <h1>8</h1>
+    </div>
+
+    <div class="dashboard-card">
+        <h2>Total Teachers</h2>
+        <h1>15</h1>
+    </div>
+
+</div>

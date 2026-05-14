@@ -1,0 +1,147 @@
+@model List<StudentPortal.Models.Student>
+
+@{
+    ViewData["Title"] = "Student List";
+}
+
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .student-container {
+        width: 90%;
+        margin: 40px auto;
+    }
+
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .page-title {
+        font-size: 38px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .add-btn {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 22px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .add-btn:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+    }
+
+    .table-container {
+        background-color: white;
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    table th {
+        background-color: #2c3e50;
+        color: white;
+        padding: 16px;
+        text-align: left;
+        font-size: 18px;
+    }
+
+    table td {
+        padding: 14px;
+        border-bottom: 1px solid #ddd;
+        font-size: 17px;
+    }
+
+    table tr:hover {
+        background-color: #f1f1f1;
+        transition: 0.2s;
+    }
+
+    .empty-text {
+        text-align: center;
+        font-size: 22px;
+        color: gray;
+        padding: 30px;
+    }
+</style>
+
+<div class="student-container">
+
+    <!-- TOP SECTION -->
+
+    <div class="top-section">
+
+        <div class="page-title">
+            Student List
+        </div>
+
+        <a href="/Student/Create" class="add-btn">
+            + Add Student
+        </a>
+
+    </div>
+
+    <!-- SUCCESS MESSAGE -->
+
+    @if (TempData["Message"] != null)
+    {
+        <script>
+            alert('@TempData["Message"]');
+        </script>
+    }
+
+    <!-- TABLE -->
+
+    <div class="table-container">
+
+        @if (Model.Count > 0)
+        {
+            <table>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                </tr>
+
+                @foreach (var student in Model)
+                {
+                    <tr>
+                        <td>@student.Id</td>
+                        <td>@student.Name</td>
+                        <td>@student.Email</td>
+                        <td>@student.Course</td>
+                    </tr>
+                }
+
+            </table>
+        }
+        else
+        {
+            <div class="empty-text">
+                No Students Added Yet
+            </div>
+        }
+
+    </div>
+
+</div>
