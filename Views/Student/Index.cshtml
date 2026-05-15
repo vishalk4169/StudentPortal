@@ -121,6 +121,10 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Course</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>DOB</th>
+                    
                 </tr>
 
                 @foreach (var student in Model)
@@ -130,6 +134,10 @@
                         <td>@student.Name</td>
                         <td>@student.Email</td>
                         <td>@student.Course</td>
+                        <td>@student.Phone</td>
+                        <td>@student.Gender</td>
+                        <td>@student.DOB.ToShortDateString()</td>
+                        
                     </tr>
                 }
 

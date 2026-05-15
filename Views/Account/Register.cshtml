@@ -1,51 +1,374 @@
 @model StudentPortal.Models.User
 
-<div class="auth-container">
-    <div class="auth-card">
+@{
+    ViewData["Title"] = "Register";
+}
 
-        <h2 class="auth-title">Create Account</h2>
+<style>
+
+    body{
+        margin:0;
+        padding:0;
+        font-family:Arial, Helvetica, sans-serif;
+        background:linear-gradient(to right,#3498db,#8e44ad);
+        height:100vh;
+    }
+
+    .main-container{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+    }
+
+    .register-card{
+        width:420px;
+        background:white;
+        padding:40px;
+        border-radius:25px;
+        box-shadow:0px 10px 30px rgba(0,0,0,0.2);
+        animation:fadeIn 0.6s ease;
+    }
+
+    @@keyframes fadeIn{
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+
+        to{
+            opacity:1;
+            transform:translateY(0px);
+        }
+    }
+
+    .title{
+        text-align:center;
+        font-size:40px;
+        font-weight:bold;
+        color:#2c3e50;
+        margin-bottom:10px;
+    }
+
+    .subtitle{
+        text-align:center;
+        color:gray;
+        margin-bottom:30px;
+    }
+
+    .input-group{
+        margin-bottom:22px;
+    }
+
+    label{
+        font-weight:bold;
+        color:#2c3e50;
+        display:block;
+        margin-bottom:8px;
+    }
+
+    input{
+        width:100%;
+        padding:14px;
+        border-radius:12px;
+        border:1px solid #ccc;
+        font-size:16px;
+        transition:0.3s;
+        box-sizing:border-box;
+    }
+
+    input:focus{
+        border-color:#3498db;
+        outline:none;
+        box-shadow:0px 0px 10px rgba(52,152,219,0.4);
+    }
+
+    .register-btn{
+        width:100%;
+        padding:14px;
+        border:none;
+        border-radius:12px;
+        background:#3498db;
+        color:white;
+        font-size:20px;
+        font-weight:bold;
+        cursor:pointer;
+        transition:0.3s;
+        margin-top:10px;
+    }
+
+    .register-btn:hover{
+        background:#2980b9;
+        transform:translateY(-3px);
+    }
+
+    .bottom-text{
+        text-align:center;
+        margin-top:20px;
+        font-size:15px;
+    }
+
+    .bottom-text a{
+        text-decoration:none;
+        color:#3498db;
+        font-weight:bold;
+    }
+
+    .validation{
+        color:red;
+        font-size:14px;
+        margin-top:5px;
+        display:block;
+    }
+
+    .top-message{
+        text-align:center;
+        color:red;
+        margin-bottom:20px;
+        font-weight:bold;
+    }
+    .strength-message{
+    margin-top:10px;
+    font-weight:bold;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.weak-password{
+    color:red;
+    animation:shake 0.3s;
+}
+
+.medium-password{
+    color:orange;
+}
+
+.strong-password{
+    color:green;
+}
+
+.weak-border{
+    border:2px solid red !important;
+    box-shadow:0px 0px 10px rgba(255,0,0,0.4);
+}
+
+.strong-border{
+    border:2px solid green !important;
+    box-shadow:0px 0px 10px rgba(0,255,0,0.4);
+}
+
+@@keyframes shake{
+
+    0%{
+        transform:translateX(0px);
+    }
+
+    25%{
+        transform:translateX(-5px);
+    }
+
+    50%{
+        transform:translateX(5px);
+    }
+
+    75%{
+        transform:translateX(-5px);
+    }
+
+    100%{
+        transform:translateX(0px);
+    }
+}
+
+</style>
+
+<div class="main-container">
+
+    <div class="register-card">
+
+        <div class="title">
+            Register
+        </div>
+
+        <div class="subtitle">
+            Create your Student Portal account
+        </div>
 
         @if(ViewBag.Message != null)
         {
-            <div class="alert alert-success">
+            <div class="top-message">
                 @ViewBag.Message
-            </div>
-        }
-
-        @if(ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">
-                @ViewBag.Error
             </div>
         }
 
         <form method="post">
 
-            <div class="mb-3">
+            <!-- NAME -->
+
+            <div class="input-group">
+
                 <label>Name</label>
-                <input type="text" asp-for="Name" class="form-control" />
+
+                <input asp-for="Name"
+                       placeholder="Enter your full name" />
+
+                <span asp-validation-for="Name"
+                      class="validation"></span>
+
             </div>
 
-            <div class="mb-3">
+            <!-- EMAIL -->
+
+            <div class="input-group">
+
                 <label>Email</label>
-                <input type="email" asp-for="Email" class="form-control" />
+
+                <input asp-for="Email"
+                       type="email"
+                       placeholder="Enter your email" />
+
+                <span asp-validation-for="Email"
+                      class="validation"></span>
+
             </div>
 
-            <div class="mb-3">
-                <label>Password</label>
-                <input type="password" asp-for="Password" class="form-control" />
-            </div>
+            <!-- PASSWORD -->
 
-            <button type="submit" class="btn btn-custom">
-                Register
+            <div class="input-group">
+
+    <label>Password</label>
+
+    <input asp-for="Password"
+           type="password"
+           placeholder="Enter strong password"
+           id="passwordBox"
+           onkeyup="checkPasswordStrength()" />
+
+    <span asp-validation-for="Password"
+          class="validation"></span>
+
+    <div id="strengthMessage"
+         class="strength-message">
+    </div>
+
+</div>
+
+            <!-- BUTTON -->
+
+            <button type="submit" class="register-btn">
+                Create Account
             </button>
 
         </form>
 
-        <div class="link-text">
+        <div class="bottom-text">
+
             Already have an account?
-            <a href="/Account/Login">Login</a>
+
+            <a href="/Account/Login">
+                Login
+            </a>
+
         </div>
 
     </div>
+
 </div>
+<script>
+
+    function checkPasswordStrength() {
+
+        var password =
+            document.getElementById("passwordBox");
+
+        var value = password.value;
+
+        var strengthText =
+            document.getElementById("strengthMessage");
+
+        var hasUpperCase =
+            /[A-Z]/.test(value);
+
+        var hasLowerCase =
+            /[a-z]/.test(value);
+
+        var hasNumber =
+            /[0-9]/.test(value);
+
+        var hasSpecial =
+    /[!#$%^&*]/.test(value);
+
+        password.classList.remove(
+            "weak-border",
+            "strong-border"
+        );
+
+        strengthText.className =
+            "strength-message";
+
+        // STRONG
+
+        if (
+            value.length >= 8 &&
+            hasUpperCase &&
+            hasLowerCase &&
+            hasNumber &&
+            hasSpecial
+        ) {
+
+            strengthText.innerHTML =
+                "Strong Password ";
+
+            strengthText.classList.add(
+                "strong-password"
+            );
+
+            password.classList.add(
+                "strong-border"
+            );
+        }
+
+        // MEDIUM
+
+        else if (
+            value.length >= 6 &&
+            (hasUpperCase || hasNumber)
+        ) {
+
+            strengthText.innerHTML =
+                "Medium Password ";
+
+            strengthText.classList.add(
+                "medium-password"
+            );
+        }
+
+        // WEAK
+
+        else if (value.length > 0) {
+
+            strengthText.innerHTML =
+                "Weak Password ";
+
+            strengthText.classList.add(
+                "weak-password"
+            );
+
+            password.classList.add(
+                "weak-border"
+            );
+        }
+
+        else {
+
+            strengthText.innerHTML = "";
+        }
+    }
+
+</script>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

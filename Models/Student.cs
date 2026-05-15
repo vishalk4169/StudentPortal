@@ -14,5 +14,15 @@ namespace StudentPortal.Models
 
         [Required]
         public string Course { get; set; }
+        [Required]
+        public string Phone { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
+
+        [Required]
+        public DateTime DOB { get; set; }
+
+        
     }
 }

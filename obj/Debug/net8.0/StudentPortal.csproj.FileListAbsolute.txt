@@ -134,3 +134,4 @@ C:\Users\lenovo\StudentPortal\obj\Debug\net8.0\refint\StudentPortal.dll
 C:\Users\lenovo\StudentPortal\obj\Debug\net8.0\StudentPortal.pdb
 C:\Users\lenovo\StudentPortal\obj\Debug\net8.0\StudentPortal.genruntimeconfig.cache
 C:\Users\lenovo\StudentPortal\obj\Debug\net8.0\ref\StudentPortal.dll
+C:\Users\lenovo\StudentPortal\obj\Debug\net8.0\StudentPortal.sourcelink.json

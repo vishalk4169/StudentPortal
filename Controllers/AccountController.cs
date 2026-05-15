@@ -23,27 +23,32 @@ public string Test()
         {
             return View();
         }
-
-        // REGISTER POST METHOD
-       [HttpPost]
+[HttpPost]
 public IActionResult Register(User user)
 {
+    if (!ModelState.IsValid)
+    {
+        ViewBag.Message = "Please fill required fields!";
+        return View(user);
+    }
+
     var existingUser = _context.Users
         .FirstOrDefault(x => x.Email == user.Email);
 
     if (existingUser != null)
     {
         ViewBag.Message = "User already exists!";
-        return View();
+        return View(user);
     }
 
     _context.Users.Add(user);
+
     _context.SaveChanges();
 
     ViewBag.Message = "Registration successful!";
+
     return View();
 }
-
         // LOGIN PAGE OPEN
         public IActionResult Login()
         {
