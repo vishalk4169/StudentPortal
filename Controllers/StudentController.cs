@@ -64,5 +64,21 @@ public IActionResult Create(Student student)
 
     return View();
 }
+public IActionResult Delete(int id)
+{
+    var student = _context.Students.Find(id);
+
+    if(student != null)
+    {
+        _context.Students.Remove(student);
+
+        _context.SaveChanges();
+    }
+
+    TempData["DeleteMessage"] =
+        "Student Deleted Successfully!";
+
+    return RedirectToAction("Index");
+}
     }
 }

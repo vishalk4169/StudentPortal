@@ -179,6 +179,40 @@
         transform:translateX(0px);
     }
 }
+.toast-success{
+
+    position:fixed;
+    top:20px;
+    right:20px;
+
+    background:#27ae60;
+    color:white;
+
+    padding:15px 25px;
+
+    border-radius:12px;
+
+    font-weight:bold;
+
+    box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+
+    animation:slideIn 0.5s ease;
+    
+    z-index:999;
+}
+
+@@keyframes slideIn{
+
+    from{
+        opacity:0;
+        transform:translateX(100px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0px);
+    }
+}
 
 </style>
 
@@ -194,12 +228,12 @@
             Create your Student Portal account
         </div>
 
-        @if(ViewBag.Message != null)
-        {
-            <div class="top-message">
-                @ViewBag.Message
-            </div>
-        }
+        @if (TempData["Success"] != null)
+{
+    <div id="toastMessage" class="toast-success">
+        @TempData["Success"]
+    </div>
+}
 
         <form method="post">
 
@@ -364,6 +398,17 @@
             strengthText.innerHTML = "";
         }
     }
+    setTimeout(function(){
+
+    var toast =
+        document.getElementById("toastMessage");
+
+    if(toast){
+
+        toast.style.display = "none";
+    }
+
+},3000);
 
 </script>
 

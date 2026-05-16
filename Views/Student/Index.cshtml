@@ -1,4 +1,10 @@
 @model List<StudentPortal.Models.Student>
+@if (TempData["DeleteMessage"] != null)
+{
+    <div class="toast-success">
+        @TempData["DeleteMessage"]
+    </div>
+}
 
 @{
     ViewData["Title"] = "Student List";
@@ -81,6 +87,26 @@
         color: gray;
         padding: 30px;
     }
+    .delete-btn{
+
+    background:#e74c3c;
+    color:white;
+
+    padding:8px 14px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    transition:0.3s;
+}
+
+.delete-btn:hover{
+
+    background:#c0392b;
+}
 </style>
 
 <div class="student-container">
@@ -101,12 +127,12 @@
 
     <!-- SUCCESS MESSAGE -->
 
-    @if (TempData["Message"] != null)
+    <!-- @if (TempData["Message"] != null)
     {
         <script>
             alert('@TempData["Message"]');
         </script>
-    }
+    } -->
 
     <!-- TABLE -->
 
@@ -121,9 +147,11 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Course</th>
+                    <th>Action</th>
                     <th>Phone</th>
                     <th>Gender</th>
                     <th>DOB</th>
+
                     
                 </tr>
 
@@ -134,6 +162,17 @@
                         <td>@student.Name</td>
                         <td>@student.Email</td>
                         <td>@student.Course</td>
+                        <td>
+
+    <a href="/Student/Delete/@student.Id"
+       class="delete-btn"
+       onclick="return confirm('Delete this student?')">
+
+        Delete
+
+    </a>
+
+</td>
                         <td>@student.Phone</td>
                         <td>@student.Gender</td>
                         <td>@student.DOB.ToShortDateString()</td>

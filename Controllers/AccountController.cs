@@ -45,9 +45,9 @@ public IActionResult Register(User user)
 
     _context.SaveChanges();
 
-    ViewBag.Message = "Registration successful!";
+   TempData["Success"] = "Registration Successful!";
 
-    return View();
+      return RedirectToAction("Register");
 }
         // LOGIN PAGE OPEN
         public IActionResult Login()
@@ -69,9 +69,9 @@ public IActionResult Register(User user)
     HttpContext.Session.SetString("UserEmail", validUser.Email);
     HttpContext.Session.SetString("UserName", validUser.Name);
 
-    TempData["Message"] = "Login Successful!";
+  TempData["LoginSuccess"] = "Login Successful!";
 
-    return RedirectToAction("Index", "Dashboard");
+   return RedirectToAction("Index", "Dashboard");
 }
     
             ViewBag.Message = "Invalid email or password!";
